@@ -20,7 +20,7 @@ services:
   scraper:
     build: .
     environment:
-      INFLUXDB_HOST: 'influxdb:8086'
+      INFLUXDB_SERVERURL: 'http://influxdb:8086'
       INFLUXDB_TOKEN: 'admin:admin'
       CLASH_HOST: '192.168.65.2:9090'
       CLASH_TOKEN: ''

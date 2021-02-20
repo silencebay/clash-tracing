@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"os"
 	"os/signal"
 	"syscall"
@@ -19,12 +18,12 @@ func envOrDefault(env string, def string) string {
 }
 
 func main() {
-	host := envOrDefault("INFLUXDB_HOST", "localhost:8086")
+	serverurl := envOrDefault("INFLUXDB_SERVERURL", "http://localhost:8086")
 	token := envOrDefault("INFLUXDB_TOKEN", "")
 
 	clashHost := envOrDefault("CLASH_HOST", "localhost:9090")
 	clashToken := envOrDefault("CLASH_TOKEN", "")
-	client := influxdb2.NewClient(fmt.Sprintf("http://%s", host), token)
+	client := influxdb2.NewClient(serverurl, token)
 	defer client.Close()
 
 	startQueue(client.WriteAPI("clash", "events"))
