@@ -22,6 +22,8 @@ services:
     environment:
       INFLUXDB_SERVERURL: 'http://influxdb:8086'
       INFLUXDB_TOKEN: 'admin:admin'
+      INFLUXDB_ORG: 'clash'
+      INFLUXDB_BUCKET: 'events'
       CLASH_HOST: '192.168.65.2:9090'
       CLASH_TOKEN: ''
     container_name: scraper

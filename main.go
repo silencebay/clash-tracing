@@ -20,13 +20,15 @@ func envOrDefault(env string, def string) string {
 func main() {
 	serverurl := envOrDefault("INFLUXDB_SERVERURL", "http://localhost:8086")
 	token := envOrDefault("INFLUXDB_TOKEN", "")
+	org := envOrDefault("INFLUXDB_ORG", "clash")
+	bucket := envOrDefault("INFLUXDB_BUCKET", "events")
 
 	clashHost := envOrDefault("CLASH_HOST", "localhost:9090")
 	clashToken := envOrDefault("CLASH_TOKEN", "")
 	client := influxdb2.NewClient(serverurl, token)
 	defer client.Close()
 
-	startQueue(client.WriteAPI("clash", "events"))
+	startQueue(client.WriteAPI(org, bucket))
 
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
